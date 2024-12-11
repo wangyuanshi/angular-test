@@ -1,0 +1,46 @@
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+mat-card {
+  padding: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+mat-form-field {
+  display: block;
+  margin-bottom: 16px;
+}
+
+button { 
+  margin-top: 20px;
+}
+
+.nested {
+  margin-left: 20px;
+}
+
+.array-item {
+  margin-bottom: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.form-container {
+  animation: slideIn 0.5s ease-in-out;
+}

@@ -1,0 +1,206 @@
+body {
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(135deg, #e3f2fd, #bbdefb, #90caf9);
+  background-attachment: fixed;
+  background-size: cover;
+  color: #333;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  background-color: #ffffff;
+  border-bottom: 2px solid #e0e0e0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.logo {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #00a7e1 40%, #e94e77 60%, #f9c402 80%);
+  margin-right: 20px;
+}
+
+.header h1 {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333333;
+}
+
+/* 引导部分样式 */
+.instructions {
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 15px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-size: 16px;
+  color: #555555;
+}
+
+.instructions p {
+  margin-bottom: 10px;
+  font-weight: bold;
+  color: #333333;
+}
+
+.instructions ol {
+  margin: 0;
+  padding: 0 20px;
+  list-style: decimal;
+}
+
+.instructions li {
+  margin-bottom: 10px;
+}
+
+.instructions strong {
+  color: #000000;
+}
+
+.instructions em {
+  font-style: italic;
+  color: #0078d7;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1);
+}
+
+mat-form-field {
+  width: 100%;
+  margin-bottom: 20px;
+  .mat-form-field-flex {
+    background-color: #f5f8fc;
+    border-radius: 8px;
+    padding: 8px;
+    transition: background-color 0.3s ease;
+  }
+
+  .mat-form-field-flex:hover {
+    background-color: #eef4fa;
+  }
+
+  .mat-form-field-appearance-fill .mat-form-field-outline {
+    border-color: #0078d7 !important;
+  }
+}
+
+mat-form-field.mat-form-field {
+  background-color: #f7faff;
+  padding: 8px;
+  border-radius: 8px;
+}
+
+mat-form-field.mat-form-field:hover {
+  background-color: #eaf4ff;
+}
+
+mat-card {
+  margin-bottom: 20px;
+  padding: 20px;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  background-color: #fefefe;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+mat-card h3 {
+  font-size: 18px;
+  margin-bottom: 10px;
+  color: #333333;
+  border-bottom: 1px solid #e0e0e0;
+  padding-bottom: 5px;
+}
+
+mat-card h4 {
+  font-size: 16px;
+  margin-top: 10px;
+  margin-bottom: 5px;
+  color: #555555;
+}
+
+fieldset {
+  border: 1px solid #e0e0e0;
+  padding: 15px 20px;
+  border-radius: 8px;
+  margin-top: 15px;
+  background-color: #f9f9f9;
+}
+
+legend {
+  font-size: 16px;
+  font-weight: bold;
+  color: #666666;
+  padding: 0 5px;
+}
+
+button[type='submit'] {
+  align-self: flex-end;
+  margin-top: 20px;
+  padding: 15px 30px;
+  font-size: 18px;
+  font-weight: bold;
+  background-color: #0078d7;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+mat-form-field:hover {
+  transform: scale(1.02);
+  transition: transform 0.3s ease-in-out;
+}
+
+button[type='submit'] {
+  padding: 15px 30px;
+  font-size: 18px;
+  font-weight: bold;
+  background-color: #0078d7;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.2s, background-color 0.3s;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+button[type='submit']:hover {
+  transform: scale(1.05);
+  background-color: #005bb5;
+}
+
+button[type='submit']:active {
+  transform: scale(0.95);
+  background-color: #003f8c;
+}
+
+
+@media (min-width: 768px) {
+  .container {
+    gap: 30px;
+  }
+
+  mat-card {
+    padding: 25px;
+  }
+
+  mat-form-field {
+    margin-bottom: 25px;
+  }
+}

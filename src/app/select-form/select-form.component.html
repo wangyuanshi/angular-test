@@ -1,0 +1,121 @@
+<div class="header">
+  <div class="logo"></div>
+  <h1>Angular Test: Dynamic Form</h1>
+</div>
+<div class="body">
+  <div class="instructions" @fadeIn>
+    <p>Welcome to the dynamic form editor! Please follow the steps below:</p>
+    <ol>
+      <li>
+        <strong>Select a JSON file:</strong> Choose a file from the dropdown menu to load the form data.
+      </li>
+      <li>
+        <strong>Edit the form:</strong> Modify the fields as needed. Each field corresponds to a key in the JSON file.
+      </li>
+      <li>
+        <strong>Submit the form:</strong> Click the <em>Submit</em> button once you've completed your edits.
+      </li>
+      <li>
+        <strong>Check the results:</strong> View the submitted data in the console for verification.
+      </li>
+    </ol>
+  </div>
+  <div class="container" @listAnimation>
+    <mat-form-field appearance="fill">
+      <mat-label>Select JSON File</mat-label>
+      <mat-select [(ngModel)]="selectedFile" (selectionChange)="onFileChange()">
+        <mat-option *ngFor="let file of jsonFiles" [value]="file">{{ file }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <form [formGroup]="dynamicForm" (ngSubmit)="onSubmit()">
+      <mat-card *ngFor="let key of getKeys(jsonData)" @cardAnimation>
+        <div *ngIf="isPrimitive(jsonData[key])">
+          <mat-form-field appearance="fill">
+            <mat-label>{{ key | titlecase }}</mat-label>
+            <input matInput [formControlName]="key" />
+          </mat-form-field>
+        </div>
+
+        <div *ngIf="isPrimitiveArray(jsonData[key])">
+          <mat-form-field appearance="fill">
+            <mat-label>{{ key | titlecase }}</mat-label>
+            <mat-select [formControlName]="key">
+              <mat-option *ngFor="let option of jsonData[key]" [value]="option">
+                {{ option }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div [formGroupName]="key" *ngIf="isFormGroup(dynamicForm.get(key))">
+          <h3>{{ key | titlecase }}</h3>
+          <div *ngFor="let subKey of getKeys(jsonData[key])">
+            <mat-form-field appearance="fill" *ngIf="isPrimitive(jsonData[key][subKey])">
+              <mat-label>{{ subKey }}</mat-label>
+              <input matInput [formControlName]="subKey" />
+            </mat-form-field>
+            <div *ngIf="isPrimitiveArray(jsonData[key][subKey])">
+              <mat-form-field appearance="fill">
+                <mat-label>{{ subKey | titlecase }}</mat-label>
+                <mat-select [formControlName]="subKey">
+                  <mat-option *ngFor="let option of jsonData[key][subKey]" [value]="option">
+                    {{ option }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div *ngIf="!isPrimitive(jsonData[key][subKey]) && !isPrimitiveArray(jsonData[key][subKey])">
+              <h4>{{ subKey | titlecase }}</h4>
+              <div [formGroupName]="subKey" *ngIf="isFormGroup(dynamicForm.get(key)?.get(subKey))">
+                <div *ngFor="let nestedKey of getKeys(jsonData[key][subKey])">
+                  <mat-form-field appearance="fill" *ngIf="isPrimitive(jsonData[key][subKey][nestedKey])">
+                    <mat-label>{{ nestedKey }}</mat-label>
+                    <input matInput [formControlName]="nestedKey" />
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div [formArrayName]="key" *ngIf="isFormArray(dynamicForm.get(key))">
+          <h3>{{ key | titlecase }}</h3>
+          <div *ngFor="let control of getFormArrayControls(dynamicForm.get(key)); let i = index">
+            <div [formGroupName]="i">
+              <div *ngFor="let arrayKey of getKeys(jsonData[key][i])">
+                <mat-form-field appearance="fill" *ngIf="isPrimitive(jsonData[key][i][arrayKey])">
+                  <mat-label>{{ arrayKey }}</mat-label>
+                  <input matInput [formControlName]="arrayKey" />
+                </mat-form-field>
+                <div *ngIf="jsonData[key]?.[i]?.[arrayKey] && isPrimitiveArray(jsonData[key][i][arrayKey])">
+                  <mat-form-field appearance="fill">
+                    <mat-label>{{ arrayKey | titlecase }}</mat-label>
+                    <mat-select [formControlName]="arrayKey">
+                      <mat-option *ngFor="let option of jsonData[key][i][arrayKey]" [value]="option">
+                        {{ option }}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div *ngIf="!isPrimitive(jsonData[key][i][arrayKey]) && !isPrimitiveArray(jsonData[key][i][arrayKey])">
+                  <h4>{{ arrayKey | titlecase }}</h4>
+                  <div [formGroupName]="arrayKey" *ngIf="isFormGroup(dynamicForm.get(key)?.get('' + i)?.get(arrayKey))">
+                    <div *ngFor="let nestedKey of getKeys(jsonData[key][i][arrayKey])">
+                      <mat-form-field appearance="fill" *ngIf="isPrimitive(jsonData[key][i][arrayKey][nestedKey])">
+                        <mat-label>{{ nestedKey }}</mat-label>
+                        <input matInput [formControlName]="nestedKey" />
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </mat-card>
+
+      <div class="submit-container">
+        <button mat-raised-button color="primary" type="submit">Submit</button>
+      </div>
+    </form>
+  </div>
+</div>
